@@ -1,13 +1,13 @@
 #include "EnergySaving.h"
 
-void EnergySaving::begin(unsigned int mode, unsigned int inter_pin, voidFuncPtr callback)
+void EnergySaving::begin(unsigned int mode, unsigned int inter_pin, voidFuncPtr callback, unsigned int inter_mode)
 {
 	if((mode == WAKE_EXT_INTERRUPT) && (inter_pin !=2) &&  (inter_pin!=0) && (inter_pin!=1))
 	{
 		NVMCTRL->CTRLB.bit.SLEEPPRM = 3;
 
 		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-		add_external_wakeup_source(inter_pin, callback, CHANGE);
+		add_external_wakeup_source(inter_pin, callback, inter_mode);
 		set_clk();
 	}
 	else return;
