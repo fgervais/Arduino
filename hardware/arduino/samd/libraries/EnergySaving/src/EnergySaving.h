@@ -20,7 +20,6 @@ class EnergySaving {
 	private:
 		void set_clk(void);
 		void enable_eic_wake(unsigned int inter_pin);
-
 };
 
 #endif
