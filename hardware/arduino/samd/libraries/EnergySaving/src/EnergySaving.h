@@ -16,6 +16,7 @@ class EnergySaving {
 		void begin(unsigned int mode, unsigned int inter_pin, voidFuncPtr callback);
 		void begin(unsigned int mode);
 		void standby(void);
+		void add_external_wakeup_source(unsigned int inter_pin, voidFuncPtr callback, unsigned int inter_mode=CHANGE);
 
 	private:
 		void set_clk(void);

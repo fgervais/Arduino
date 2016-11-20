@@ -7,10 +7,7 @@ void EnergySaving::begin(unsigned int mode, unsigned int inter_pin, voidFuncPtr 
 		NVMCTRL->CTRLB.bit.SLEEPPRM = 3;
 
 		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-		pinMode(inter_pin,INPUT_PULLUP);
-
-		attachInterrupt(inter_pin,callback, CHANGE);
-		enable_eic_wake(inter_pin);
+		add_external_wakeup_source(inter_pin, callback, CHANGE);
 		set_clk();
 	}
 	else return;
@@ -44,6 +41,14 @@ void EnergySaving::standby(void)
 {
 	__DSB();
 	__WFI();
+}
+
+
+void EnergySaving::add_external_wakeup_source(unsigned int inter_pin, voidFuncPtr callback, unsigned int inter_mode)
+{
+	pinMode(inter_pin, INPUT_PULLUP);
+	attachInterrupt(inter_pin, callback, inter_mode);
+	enable_eic_wake(inter_pin);
 }
 
 
